@@ -16,11 +16,37 @@ def isCorrectOrder(update):
                 isCorrect = False
     return isCorrect
 
+def correctOrder(update):
+    print('update', update)
+
+    for rule in rules:
+        one, two = rule.split('|')
+
+        if one in update and two in update:
+            firstIndex = update.index(one)
+            secondIndex = update.index(two)
+
+            if firstIndex > secondIndex:
+                update[secondIndex] = one
+                update[firstIndex] = two
+
+                if isCorrectOrder(update):
+                    return  update
+                else:
+                    correctOrder(update)
+                print('new update', update)
+
+    return update
+
 total = 0
 for upd in updates:
     update = upd.split(',')
     if isCorrectOrder(update):
         middle = update[(len(update) - 1) // 2]
-        total+= int(middle)
+        # total+= int(middle)
+    else:
+        newUpdate = correctOrder(update)
+        middle = update[(len(newUpdate) - 1) // 2]
+        total += int(middle)
 print('total', total)
 
