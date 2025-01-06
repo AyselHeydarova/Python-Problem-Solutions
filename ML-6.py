@@ -25,6 +25,7 @@ def calculateDistinctPositions():
     visitedDestinations = set()
     currentDirection = up
     continueSearch = True
+    visitedDestinations.add((rowOfGuard, columnOfGuard))
 
     while continueSearch:
             while currentDirection == up:
@@ -38,7 +39,7 @@ def calculateDistinctPositions():
                 elif map[rowOfGuard][columnOfGuard] == obstruction:
                     rowOfGuard += 1
                     currentDirection = right
-                    # print('up rowOfGuard', rowOfGuard, totalCount)
+
                 else:
                     visitedDestinations.add((rowOfGuard, columnOfGuard))
 
@@ -48,9 +49,8 @@ def calculateDistinctPositions():
                 if is_out_of_range(rowOfGuard, columnOfGuard):
                     columnOfGuard -= 1
                     continueSearch = False
-                    print('right should return' ,rowOfGuard)
-
                     return len(visitedDestinations)
+
                 elif map[rowOfGuard][columnOfGuard] == obstruction:
                     columnOfGuard -= 1
                     currentDirection = down
@@ -78,9 +78,8 @@ def calculateDistinctPositions():
                 if is_out_of_range(rowOfGuard, columnOfGuard):
                     columnOfGuard += 1
                     continueSearch = False
-                    print('left should return' ,rowOfGuard)
-
                     return len(visitedDestinations)
+
                 elif map[rowOfGuard][columnOfGuard] == obstruction:
                     columnOfGuard += 1
                     currentDirection = up
@@ -88,7 +87,6 @@ def calculateDistinctPositions():
                 else:
                     visitedDestinations.add((rowOfGuard, columnOfGuard))
                     continueSearch = True
-
 
 total = calculateDistinctPositions()
 print('total', total)
